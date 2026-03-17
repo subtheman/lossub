@@ -608,6 +608,44 @@
 </head>
 <body>
 
+<script>
+  // ── CAROUSEL (definido temprano para que los onclick inline lo encuentren) ──
+  var currentSlide = 0;
+  var totalSlides = 2;
+
+  function changeSlide(dir) {
+    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  function goToSlide(n) {
+    currentSlide = n;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    var slides = document.querySelector('.carousel-slides');
+    var dots = document.querySelectorAll('.dot');
+    if (slides) slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === currentSlide); });
+  }
+
+  // ── MENU ────────────────────────────────────────────────────
+  function toggleMenu() {
+    var menu = document.getElementById('mobile-menu');
+    var btn = document.getElementById('hamburger');
+    if (menu) menu.classList.toggle('open');
+    if (btn) btn.classList.toggle('open');
+  }
+
+  function closeMenu() {
+    var menu = document.getElementById('mobile-menu');
+    var btn = document.getElementById('hamburger');
+    if (menu) menu.classList.remove('open');
+    if (btn) btn.classList.remove('open');
+  }
+</script>
+
 <!-- HEADER -->
 <header>
   <a href="#" class="logo"></a>
@@ -893,44 +931,13 @@
 </footer>
 
 <script>
-  // ── MOBILE MENU ──────────────────────────────────────────
-  function toggleMenu() {
-    const menu = document.getElementById('mobile-menu');
-    const btn = document.getElementById('hamburger');
-    menu.classList.toggle('open');
-    btn.classList.toggle('open');
-  }
-  // CAROUSEL
-  let currentSlide = 0;
-  const totalSlides = 2;
-
-  window.changeSlide = function(dir) {
-    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
-    updateCarousel();
-  }
-
-  window.goToSlide = function(n) {
-    currentSlide = n;
-    updateCarousel();
-  }
-
-  function updateCarousel() {
-    const slides = document.querySelector('.carousel-slides');
-    const dots = document.querySelectorAll('.dot');
-    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-  }
-
-  // Auto-advance every 5 seconds
-  setInterval(() => window.changeSlide(1), 5000);
-
-  function closeMenu() {
-    document.getElementById('mobile-menu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-  }
+  // Auto-advance carousel every 5 seconds
+  setInterval(function() { changeSlide(1); }, 5000);
 
   // ── EMAILJS INIT ─────────────────────────────────────────
-  emailjs.init('bYr7GpESyw248ykR8');
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init('bYr7GpESyw248ykR8');
+  }
 
   const EMAILJS_SERVICE  = 'service_x2loys9';
   const EMAILJS_TEMPLATE = 'template_ud685x3';
