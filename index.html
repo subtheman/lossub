@@ -889,7 +889,7 @@
       <textarea id="contacto-mensaje" placeholder="mensaje"></textarea>
       <button onclick="enviarContacto()">Enviar</button>
       <span id="contacto-msg" style="display:none;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6aaa6a;margin-top:8px;display:none;">✓ mensaje enviado</span>
-      <a href="mailto:correosub@gmail.com" class="contacto-email">correosub@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#21424e5353444e52544361464c40484d0f424e4c" class="contacto-email"><span class="__cf_email__" data-cfemail="12717d6060777d61677052757f737b7e3c717d7f">[email&#160;protected]</span></a>
     </div>
 
     <!-- MERCH -->
@@ -901,7 +901,7 @@
         <div class="merch-item"><div class="merch-img"><div class="merch-placeholder"></div></div><div class="merch-name">Vinilo · Destruye Todo</div><div class="merch-desc">180g · Edición especial</div><div class="merch-status">PRÓXIMAMENTE</div></div>
         <div class="merch-item"><div class="merch-img"><div class="merch-placeholder"></div></div><div class="merch-name">Accesorios</div><div class="merch-desc">Gorras · Pines · Más</div><div class="merch-status">PRÓXIMAMENTE</div></div>
       </div>
-      <div style="margin-top:12px;font-family:IBM Plex Mono,monospace;font-size:11px;color:#aaa;">Para consultas escribinos a <a href="mailto:correosub@gmail.com" style="color:var(--rojo);">correosub@gmail.com</a></div>
+      <div style="margin-top:12px;font-family:IBM Plex Mono,monospace;font-size:11px;color:#aaa;">Para consultas escribinos a <a href="/cdn-cgi/l/email-protection#b4d7dbc6c6d1dbc7c1d6f4d3d9d5ddd89ad7dbd9" style="color:var(--rojo);"><span class="__cf_email__" data-cfemail="ec8f839e9e89839f998eac8b818d8580c28f8381">[email&#160;protected]</span></a></div>
     </div>
 
   </div>
@@ -913,7 +913,7 @@
 
       <div class="novedad">
         <div class="novedad-fecha">24.02.2026</div>
-        <div class="novedad-titulo">SALE "LOS SUB DESTRUYE TODO"</div>
+        <div class="novedad-titulo">SALE "DESTRUYE TODO"</div>
         <div class="novedad-texto">
           Ya está disponible nuestro nuevo disco. Dejá tu mail en la sección de música y escuchalo completo, antes que en cualquier plataforma. Gracias por el aguante de siempre.
         </div>
@@ -930,7 +930,7 @@
   © LOS SUB — TODOS LOS DERECHOS RESERVADOS
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Auto-advance carousel every 5 seconds
   setInterval(function() { changeSlide(1); }, 5000);
 
@@ -1076,16 +1076,4 @@
     fetch('https://formspree.io/f/xzdaokrj', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        "Nombre": nombre,
-        "Email": email,
-        "Mensaje": mensaje,
-        "_subject": "Nuevo mensaje para Los Sub"
-      })
-    })
-    .then(r => r.json())
-    .then(data => {
-      if (data.ok) {
-        document.getElementById('contacto-nombre').value = '';
-        document.getElementById('contacto-email').value = '';
-        document.get
+     
