@@ -904,12 +904,12 @@
   let currentSlide = 0;
   const totalSlides = 2;
 
-  function changeSlide(dir) {
+  window.changeSlide = function(dir) {
     currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
     updateCarousel();
   }
 
-  function goToSlide(n) {
+  window.goToSlide = function(n) {
     currentSlide = n;
     updateCarousel();
   }
@@ -922,7 +922,7 @@
   }
 
   // Auto-advance every 5 seconds
-  setInterval(() => changeSlide(1), 5000);
+  setInterval(() => window.changeSlide(1), 5000);
 
   function closeMenu() {
     document.getElementById('mobile-menu').classList.remove('open');
