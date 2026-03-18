@@ -726,7 +726,7 @@
     <!-- DISCO -->
     <div class="disco-section" id="disco">
       <div class="section-title">Disco nuevo</div>
-      <div class="disco-title">LOS SUB DESTRUYE TODO</div>
+      <div class="disco-title">DESTRUYE TODO</div>
       <div class="disco-desc">
         Dejá tu email y escuchá el disco completo.
       </div>
@@ -913,7 +913,7 @@
 
       <div class="novedad">
         <div class="novedad-fecha">24.02.2026</div>
-        <div class="novedad-titulo">SALE "DESTRUYE TODO"</div>
+        <div class="novedad-titulo">Destruye Todo</div>
         <div class="novedad-texto">
           Ya está disponible nuestro nuevo disco. Dejá tu mail en la sección de música y escuchalo completo, antes que en cualquier plataforma. Gracias por el aguante de siempre.
         </div>
@@ -1076,4 +1076,43 @@
     fetch('https://formspree.io/f/xzdaokrj', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-     
+      body: JSON.stringify({ nombre, email, mensaje })
+    }).then(() => {
+      document.getElementById('contacto-nombre').value = '';
+      document.getElementById('contacto-email').value = '';
+      document.getElementById('contacto-mensaje').value = '';
+      document.getElementById('contacto-msg').style.display = 'inline';
+      setTimeout(() => { document.getElementById('contacto-msg').style.display = 'none'; }, 3000);
+    }).catch(err => {
+      console.error('Error enviando contacto:', err);
+      alert('Hubo un error enviando el mensaje. Intentá de nuevo.');
+    });
+  }
+
+  // ── CARRUSEL ──────────────────────────────────────────────────
+  let slideActual = 0;
+  function changeSlide(n) {
+    const slides = document.querySelectorAll('.carousel-slide');
+    slideActual = (slideActual + n + slides.length) % slides.length;
+    document.querySelector('.carousel-slides').style.transform = `translateX(-${slideActual * 100}%)`;
+    document.querySelectorAll('.dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === slideActual);
+    });
+  }
+  function goToSlide(n) {
+    slideActual = n;
+    document.querySelector('.carousel-slides').style.transform = `translateX(-${slideActual * 100}%)`;
+    document.querySelectorAll('.dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === slideActual);
+    });
+  }
+
+  // ── MENÚ MÓVIL ────────────────────────────────────────────────
+  function toggleMenu() {
+    const nav = document.querySelector('nav');
+    nav.classList.toggle('visible');
+  }
+  function closeMenu() {
+    document.querySelector('nav').classList.remove('visible');
+  }
+</script>
