@@ -229,6 +229,126 @@
       display: none;
     }
 
+    /* PLAYER CUSTOM */
+    #player {
+      margin-bottom: 24px;
+    }
+    #player.hidden {
+      display: none;
+    }
+    #player.visible {
+      display: block;
+    }
+    .player-container {
+      background: var(--negro);
+      border: 1px solid var(--borde);
+      padding: 16px;
+      color: var(--blanco);
+    }
+    .player-header {
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--borde);
+      padding-bottom: 12px;
+    }
+    .player-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+    .player-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .player-btn {
+      background: var(--rojo);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      min-width: 36px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .player-btn:hover {
+      background: #a93226;
+    }
+    .player-progress {
+      flex: 1;
+      height: 4px;
+      background: #333;
+      cursor: pointer;
+      position: relative;
+    }
+    .player-progress-bar {
+      height: 100%;
+      background: var(--rojo);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    .player-time {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #888;
+      min-width: 55px;
+      text-align: right;
+    }
+    .track-list {
+      margin-top: 16px;
+    }
+    .track-list-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--borde);
+    }
+    .track-list ul {
+      list-style: none;
+      padding: 0;
+    }
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #222;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .track-item:hover {
+      color: var(--rojo);
+    }
+    .track-item.playing {
+      color: var(--rojo);
+    }
+    .track-number {
+      color: #666;
+      min-width: 25px;
+    }
+    .track-name {
+      flex: 1;
+    }
+    .track-duration {
+      color: #666;
+      min-width: 40px;
+      text-align: right;
+    }
+
     /* MAIN LAYOUT */
     main {
       display: grid;
@@ -749,7 +869,39 @@
       <!-- Player (oculto hasta verificación) -->
       <div class="player" id="player">
         <div class="player-title">▶ ESCUCHÁ EL DISCO</div>
-        <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4292955179/size=large/bgcol=0a0a0a/linkcol=c0392b/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://los-sub.bandcamp.com/album/confia">Confia by Los SUB</a></iframe>
+        <div id="player" class="hidden">
+          <div class="player-container">
+            <div class="player-header">
+              <div class="player-title">Destruye Todo</div>
+              <div class="player-meta">Los SUB · 2024</div>
+            </div>
+            
+            <div class="player-controls">
+              <button id="play-btn" class="player-btn">▶</button>
+              <div class="player-progress">
+                <div id="progress" class="player-progress-bar"></div>
+              </div>
+              <span id="time-display" class="player-time">0:00 / 0:00</span>
+            </div>
+
+            <div class="track-list">
+              <div class="track-list-label">Canciones</div>
+              <ul id="track-list">
+                <li data-track="0" class="track-item"><span class="track-number">01</span><span class="track-name">Vengador tóxico</span><span class="track-duration">3:34</span></li>
+                <li data-track="1" class="track-item"><span class="track-number">02</span><span class="track-name">Algo bueno</span><span class="track-duration">3:40</span></li>
+                <li data-track="2" class="track-item"><span class="track-number">03</span><span class="track-name">Camino a marte</span><span class="track-duration">4:40</span></li>
+                <li data-track="3" class="track-item"><span class="track-number">04</span><span class="track-name">Puro corazón</span><span class="track-duration">3:18</span></li>
+                <li data-track="4" class="track-item"><span class="track-number">05</span><span class="track-name">Plástico</span><span class="track-duration">2:34</span></li>
+                <li data-track="5" class="track-item"><span class="track-number">06</span><span class="track-name">Pesca</span><span class="track-duration">3:04</span></li>
+                <li data-track="6" class="track-item"><span class="track-number">07</span><span class="track-name">Solos en la gran ciudad</span><span class="track-duration">3:14</span></li>
+                <li data-track="7" class="track-item"><span class="track-number">08</span><span class="track-name">La eternidad</span><span class="track-duration">2:32</span></li>
+                <li data-track="8" class="track-item"><span class="track-number">09</span><span class="track-name">Nuestra última canción</span><span class="track-duration">3:42</span></li>
+              </ul>
+            </div>
+          </div>
+          
+          <audio id="audio-player"></audio>
+        </div>
       </div>
     </div>
 
@@ -942,6 +1094,106 @@
   const EMAILJS_SERVICE  = 'service_x2loys9';
   const EMAILJS_TEMPLATE = 'template_ud685x3';
   const SITE_URL = window.location.origin + window.location.pathname;
+
+  // ── DATOS DEL PLAYER ──────────────────────────────────────
+  const TRACKS = [
+    { name: 'Vengador tóxico', duration: '3:34', driveId: '1hPqATqmXeWbrgvfGMXckpXF47UbQJjKJ' },
+    { name: 'Algo bueno', duration: '3:40', driveId: '1iakD1GyEaL7DQEnCrpMTS8r-YlO7VTQO' },
+    { name: 'Camino a marte', duration: '4:40', driveId: '1unvisHyKq228yphKOWu7m_9zv4_9IMSM' },
+    { name: 'Puro corazón', duration: '3:18', driveId: '17Y-M4uvVEGicqwQQCRDr-vT1_2QoHcza' },
+    { name: 'Plástico', duration: '2:34', driveId: '1q-dS0jHIHDOuHZpDZMICmJzjDVGPFfjH' },
+    { name: 'Pesca', duration: '3:04', driveId: '1xZRmlEnGXEK0pObFg2TP8pgjYXwtYIFa' },
+    { name: 'Solos en la gran ciudad', duration: '3:14', driveId: '1pWW65pLRaWCy93aZi4mhvTV225qotw7t' },
+    { name: 'La eternidad', duration: '2:32', driveId: '1W721oZlwjPUrZoTpl3WvQkEZubKFL6Ap' },
+    { name: 'Nuestra última canción', duration: '3:42', driveId: '1nNCwjpF7J4SHN4SivUi8UPffWn94jLZM' }
+  ];
+
+  let trackActual = -1;
+  let playing = false;
+  let interval = null;
+  let progreso = 0;
+  const audioElement = document.getElementById('audio-player');
+
+  function getDriveStreamUrl(driveId) {
+    return `https://drive.google.com/uc?export=download&id=${driveId}`;
+  }
+
+  function selectTrack(idx) {
+    trackActual = idx;
+    const track = TRACKS[idx];
+    audioElement.src = getDriveStreamUrl(track.driveId);
+    
+    document.querySelectorAll('.track-item').forEach((li, i) => {
+      li.classList.toggle('playing', i === idx);
+    });
+    
+    progreso = 0;
+    document.getElementById('progress').style.width = '0%';
+    startPlay();
+  }
+
+  function togglePlay() {
+    if (trackActual === -1) return;
+    if (playing) pausePlay();
+    else startPlay();
+  }
+
+  function startPlay() {
+    if (trackActual === -1) return;
+    playing = true;
+    document.getElementById('play-btn').textContent = '⏸';
+    audioElement.play();
+    
+    clearInterval(interval);
+    interval = setInterval(() => {
+      if (audioElement.duration) {
+        progreso = (audioElement.currentTime / audioElement.duration) * 100;
+        document.getElementById('progress').style.width = progreso + '%';
+        updateTimeDisplay();
+      }
+      if (audioElement.currentTime >= audioElement.duration && audioElement.duration > 0) {
+        pausePlay();
+      }
+    }, 300);
+  }
+
+  function pausePlay() {
+    playing = false;
+    document.getElementById('play-btn').textContent = '▶';
+    audioElement.pause();
+    clearInterval(interval);
+  }
+
+  function updateTimeDisplay() {
+    const current = formatTime(audioElement.currentTime || 0);
+    const duration = formatTime(audioElement.duration || 0);
+    document.getElementById('time-display').textContent = `${current} / ${duration}`;
+  }
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  // Click en track
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.track-item').forEach((item, idx) => {
+      item.addEventListener('click', () => selectTrack(idx));
+    });
+    
+    document.getElementById('play-btn').addEventListener('click', togglePlay);
+    
+    document.querySelector('.player-progress').addEventListener('click', (e) => {
+      if (trackActual === -1 || !audioElement.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      audioElement.currentTime = percent * audioElement.duration;
+      progreso = percent * 100;
+      document.getElementById('progress').style.width = progreso + '%';
+    });
+  });
+
 
   // ── COOKIE HELPERS ───────────────────────────────────────
   function setCookie(name, value, days) {
