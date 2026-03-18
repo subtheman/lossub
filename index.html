@@ -1112,7 +1112,7 @@
   const audioElement = document.getElementById('audio-player');
 
   function getDriveStreamUrl(driveId) {
-    return `https://drive.google.com/uc?export=download&id=${driveId}`;
+    return `https://drive.google.com/uc?id=${driveId}`;
   }
 
   function selectTrack(idx) {
@@ -1173,25 +1173,6 @@
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  // Click en track
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.track-item').forEach((item, idx) => {
-      item.addEventListener('click', () => selectTrack(idx));
-    });
-    
-    document.getElementById('play-btn').addEventListener('click', togglePlay);
-    
-    document.querySelector('.player-progress').addEventListener('click', (e) => {
-      if (trackActual === -1 || !audioElement.duration) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
-      audioElement.currentTime = percent * audioElement.duration;
-      progreso = percent * 100;
-      document.getElementById('progress').style.width = progreso + '%';
-    });
-  });
-
-
   // ── COOKIE HELPERS ───────────────────────────────────────
   function setCookie(name, value, days) {
     const d = new Date();
@@ -1226,7 +1207,32 @@
   function mostrarPlayer() {
     document.getElementById('disco-form').style.display = 'none';
     document.getElementById('disco-check-email').style.display = 'none';
+    document.getElementById('player').classList.remove('hidden');
     document.getElementById('player').classList.add('visible');
+    
+    // Inicializar los listeners del player
+    setTimeout(() => {
+      document.querySelectorAll('.track-item').forEach((item, idx) => {
+        item.addEventListener('click', () => selectTrack(idx));
+      });
+      
+      const playBtn = document.getElementById('play-btn');
+      if (playBtn) {
+        playBtn.addEventListener('click', togglePlay);
+      }
+      
+      const progressBar = document.querySelector('.player-progress');
+      if (progressBar) {
+        progressBar.addEventListener('click', (e) => {
+          if (trackActual === -1 || !audioElement.duration) return;
+          const rect = e.currentTarget.getBoundingClientRect();
+          const percent = (e.clientX - rect.left) / rect.width;
+          audioElement.currentTime = percent * audioElement.duration;
+          progreso = percent * 100;
+          document.getElementById('progress').style.width = progreso + '%';
+        });
+      }
+    }, 100);
   }
 
   // ── ENVIAR VERIFICACIÓN ───────────────────────────────────
