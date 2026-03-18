@@ -867,41 +867,38 @@
       </div>
 
       <!-- Player (oculto hasta verificación) -->
-      <div class="player" id="player">
-        <div class="player-title">▶ ESCUCHÁ EL DISCO</div>
-        <div id="player" class="hidden">
-          <div class="player-container">
-            <div class="player-header">
-              <div class="player-title">Destruye Todo</div>
-              <div class="player-meta">Los SUB · 2024</div>
-            </div>
-            
-            <div class="player-controls">
-              <button id="play-btn" class="player-btn">▶</button>
-              <div class="player-progress">
-                <div id="progress" class="player-progress-bar"></div>
-              </div>
-              <span id="time-display" class="player-time">0:00 / 0:00</span>
-            </div>
-
-            <div class="track-list">
-              <div class="track-list-label">Canciones</div>
-              <ul id="track-list">
-                <li data-track="0" class="track-item"><span class="track-number">01</span><span class="track-name">Vengador tóxico</span><span class="track-duration">3:34</span></li>
-                <li data-track="1" class="track-item"><span class="track-number">02</span><span class="track-name">Algo bueno</span><span class="track-duration">3:40</span></li>
-                <li data-track="2" class="track-item"><span class="track-number">03</span><span class="track-name">Camino a marte</span><span class="track-duration">4:40</span></li>
-                <li data-track="3" class="track-item"><span class="track-number">04</span><span class="track-name">Puro corazón</span><span class="track-duration">3:18</span></li>
-                <li data-track="4" class="track-item"><span class="track-number">05</span><span class="track-name">Plástico</span><span class="track-duration">2:34</span></li>
-                <li data-track="5" class="track-item"><span class="track-number">06</span><span class="track-name">Pesca</span><span class="track-duration">3:04</span></li>
-                <li data-track="6" class="track-item"><span class="track-number">07</span><span class="track-name">Solos en la gran ciudad</span><span class="track-duration">3:14</span></li>
-                <li data-track="7" class="track-item"><span class="track-number">08</span><span class="track-name">La eternidad</span><span class="track-duration">2:32</span></li>
-                <li data-track="8" class="track-item"><span class="track-number">09</span><span class="track-name">Nuestra última canción</span><span class="track-duration">3:42</span></li>
-              </ul>
-            </div>
+      <div id="player" class="hidden">
+        <div class="player-container">
+          <div class="player-header">
+            <div class="player-title">Destruye Todo</div>
+            <div class="player-meta">Los SUB · 2024</div>
           </div>
           
-          <audio id="audio-player"></audio>
+          <div class="player-controls">
+            <button id="play-btn" class="player-btn">▶</button>
+            <div class="player-progress">
+              <div id="progress" class="player-progress-bar"></div>
+            </div>
+            <span id="time-display" class="player-time">0:00 / 0:00</span>
+          </div>
+
+          <div class="track-list">
+            <div class="track-list-label">Canciones</div>
+            <ul id="track-list">
+              <li data-track="0" class="track-item"><span class="track-number">01</span><span class="track-name">Vengador tóxico</span><span class="track-duration">3:34</span></li>
+              <li data-track="1" class="track-item"><span class="track-number">02</span><span class="track-name">Algo bueno</span><span class="track-duration">3:40</span></li>
+              <li data-track="2" class="track-item"><span class="track-number">03</span><span class="track-name">Camino a marte</span><span class="track-duration">4:40</span></li>
+              <li data-track="3" class="track-item"><span class="track-number">04</span><span class="track-name">Puro corazón</span><span class="track-duration">3:18</span></li>
+              <li data-track="4" class="track-item"><span class="track-number">05</span><span class="track-name">Plástico</span><span class="track-duration">2:34</span></li>
+              <li data-track="5" class="track-item"><span class="track-number">06</span><span class="track-name">Pesca</span><span class="track-duration">3:04</span></li>
+              <li data-track="6" class="track-item"><span class="track-number">07</span><span class="track-name">Solos en la gran ciudad</span><span class="track-duration">3:14</span></li>
+              <li data-track="7" class="track-item"><span class="track-number">08</span><span class="track-name">La eternidad</span><span class="track-duration">2:32</span></li>
+              <li data-track="8" class="track-item"><span class="track-number">09</span><span class="track-name">Nuestra última canción</span><span class="track-duration">3:42</span></li>
+            </ul>
+          </div>
         </div>
+        
+        <audio id="audio-player"></audio>
       </div>
     </div>
 
