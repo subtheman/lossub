@@ -1279,45 +1279,6 @@
     }).catch(e => console.error('Error guardando email:', e));
   }
 
-  // ── PLAYER ───────────────────────────────────────────────────
-  let trackActual = -1;
-  let playing = false;
-  let interval = null;
-  let progreso = 0;
-
-  function selectTrack(el, idx) {
-    document.querySelectorAll('.track-list li').forEach(li => li.classList.remove('playing'));
-    el.classList.add('playing');
-    trackActual = idx;
-    const nombre = el.querySelector('.track-name').textContent;
-    document.getElementById('now-playing').textContent = nombre;
-    progreso = 0;
-    document.getElementById('progress').style.width = '0%';
-    startPlay();
-  }
-
-  function togglePlay() {
-    if (playing) pausePlay(); else startPlay();
-  }
-
-  function startPlay() {
-    if (trackActual === -1) return;
-    playing = true;
-    document.getElementById('play-btn').textContent = '⏸';
-    clearInterval(interval);
-    interval = setInterval(() => {
-      progreso = Math.min(progreso + 0.3, 100);
-      document.getElementById('progress').style.width = progreso + '%';
-      if (progreso >= 100) pausePlay();
-    }, 300);
-  }
-
-  function pausePlay() {
-    playing = false;
-    document.getElementById('play-btn').textContent = '▶';
-    clearInterval(interval);
-  }
-
   // ── CONTACTO (Formspree) ─────────────────────────────────────
   function enviarContacto() {
     const nombre = document.getElementById('contacto-nombre').value.trim();
@@ -1340,6 +1301,7 @@
       alert('Hubo un error enviando el mensaje. Intentá de nuevo.');
     });
   }
+
 
   // ── CARRUSEL ──────────────────────────────────────────────────
   let slideActual = 0;
