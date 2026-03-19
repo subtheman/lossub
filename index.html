@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOS SUB</title>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -233,120 +233,185 @@
     #player {
       margin-bottom: 24px;
     }
-    #player.hidden {
-      display: none;
+    #player.hidden { display: none; }
+    #player.visible { display: block; }
+
+    /* --- Nuevo player (Space Mono / Bebas Neue) --- */
+    .np-wrap {
+      background: #0a0a0a;
+      padding: 20px;
+      color: #e0ddd8;
     }
-    #player.visible {
-      display: block;
+    .np-album-header {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 24px;
     }
-    .player-container {
-      background: var(--negro);
-      border: 1px solid var(--borde);
-      padding: 16px;
-      color: var(--blanco);
-    }
-    .player-header {
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--borde);
-      padding-bottom: 12px;
-    }
-    .player-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 2px;
-      margin-bottom: 4px;
-    }
-    .player-meta {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: #888;
-      letter-spacing: 1px;
-    }
-    .player-controls {
+    .np-cover {
+      width: 100px;
+      height: 100px;
+      background: #111;
+      border: 1px solid #222;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+    }
+    .np-cover-cross {
+      position: absolute;
+      width: 1px;
+      height: 60%;
+      background: #2a2a2a;
+      top: 20%;
+    }
+    .np-cover-cross.h {
+      width: 60%;
+      height: 1px;
+      top: 50%;
+      left: 20%;
+    }
+    .np-album-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    .np-album-artist {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #555;
+      text-transform: uppercase;
+    }
+    .np-now-playing {
       margin-bottom: 16px;
+      padding: 12px 0;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
     }
-    .player-btn {
-      background: var(--rojo);
-      border: none;
-      color: white;
-      padding: 8px 12px;
-      font-size: 16px;
-      cursor: pointer;
-      min-width: 36px;
-      text-align: center;
-      transition: background 0.2s;
+    .np-now-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: #333;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
-    .player-btn:hover {
-      background: #a93226;
+    .np-now-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: #e0ddd8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .player-progress {
-      flex: 1;
-      height: 4px;
-      background: #333;
+    .np-progress-area { margin-bottom: 16px; }
+    .np-progress-wrap {
+      width: 100%;
+      height: 2px;
+      background: #1e1e1e;
       cursor: pointer;
       position: relative;
+      margin-bottom: 6px;
     }
-    .player-progress-bar {
+    .np-progress-fill {
       height: 100%;
       background: var(--rojo);
       width: 0%;
-      transition: width 0.1s linear;
+      transition: width 0.3s linear;
+      pointer-events: none;
     }
-    .player-time {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: #888;
-      min-width: 55px;
-      text-align: right;
-    }
-    .track-list {
-      margin-top: 16px;
-    }
-    .track-list-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: #888;
+    .np-progress-wrap:hover .np-progress-fill { background: #e74c3c; }
+    .np-time {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #333;
       letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--borde);
     }
-    .track-list ul {
-      list-style: none;
-      padding: 0;
-    }
-    .track-item {
+    .np-controls {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid #222;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .np-ctrl-btn {
+      background: none;
+      border: none;
       cursor: pointer;
-      transition: color 0.2s;
+      padding: 0;
+      color: #444;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
     }
-    .track-item:hover {
-      color: var(--rojo);
+    .np-ctrl-btn:hover { color: #e0ddd8; }
+    .np-play-btn {
+      width: 40px;
+      height: 40px;
+      background: var(--rojo);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+      flex-shrink: 0;
     }
-    .track-item.playing {
-      color: var(--rojo);
+    .np-play-btn:hover { background: #e74c3c; }
+    .np-play-btn svg { color: #fff; }
+    .np-tracklist { width: 100%; }
+    .np-tracklist-header {
+      display: grid;
+      grid-template-columns: 24px 1fr 44px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #2a2a2a;
+      text-transform: uppercase;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #141414;
+      margin-bottom: 2px;
     }
-    .track-number {
-      color: #666;
-      min-width: 25px;
+    .np-track-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 44px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #0f0f0f;
+      cursor: pointer;
     }
-    .track-name {
-      flex: 1;
+    .np-track-row:hover { background: #111; margin: 0 -8px; padding-left: 8px; padding-right: 8px; }
+    .np-track-row.active .np-track-name { color: var(--rojo); }
+    .np-track-row.active .np-track-num { color: var(--rojo); }
+    .np-track-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #2a2a2a;
+      letter-spacing: 1px;
     }
-    .track-duration {
-      color: #666;
-      min-width: 40px;
+    .np-track-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: #888;
+      transition: color 0.15s;
+    }
+    .np-track-row:hover .np-track-name { color: #e0ddd8; }
+    .np-track-dur {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #2a2a2a;
       text-align: right;
+      letter-spacing: 1px;
     }
 
     /* MAIN LAYOUT */
@@ -435,86 +500,6 @@
     }
     .disco-form button:hover { background: #a93226; }
 
-    /* PLAYER */
-    .player {
-      display: none;
-      background: var(--negro);
-      padding: 20px;
-      margin-bottom: 12px;
-    }
-    .player.visible { display: block; }
-    .player-title {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      color: #aaa;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .track-list { list-style: none; }
-    .track-list li {
-      display: flex;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #222;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .track-list li:hover { background: #111; padding-left: 4px; }
-    .track-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      color: #555;
-      width: 24px;
-    }
-    .track-name {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 16px;
-      color: var(--blanco);
-      flex: 1;
-    }
-    .track-dur {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      color: #555;
-    }
-    .playing .track-name { color: var(--rojo); }
-    .player-controls {
-      margin-top: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .play-btn {
-      background: var(--rojo);
-      border: none;
-      color: white;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .now-playing {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 14px;
-      color: #aaa;
-    }
-    .progress-bar {
-      flex: 1;
-      height: 2px;
-      background: #333;
-      position: relative;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--rojo);
-      width: 0%;
-      transition: width 0.1s linear;
-    }
 
     /* SHOWS */
     .shows-section { margin-bottom: 40px; }
@@ -868,36 +853,55 @@
 
       <!-- Player (oculto hasta verificación) -->
       <div id="player" class="hidden">
-        <div class="player-container">
-          <div class="player-header">
-            <div class="player-title">Destruye Todo</div>
-            <div class="player-meta">Los SUB · 2024</div>
-          </div>
-          
-          <div class="player-controls">
-            <button id="play-btn" class="player-btn">▶</button>
-            <div class="player-progress">
-              <div id="progress" class="player-progress-bar"></div>
+        <div class="np-wrap">
+
+          <div class="np-album-header">
+            <div class="np-cover">
+              <div class="np-cover-cross"></div>
+              <div class="np-cover-cross h"></div>
             </div>
-            <span id="time-display" class="player-time">0:00 / 0:00</span>
+            <div>
+              <div class="np-album-title">Destruye Todo</div>
+              <div class="np-album-artist">Los Sub · 2024</div>
+            </div>
           </div>
 
-          <div class="track-list">
-            <div class="track-list-label">Canciones</div>
-            <ul id="track-list">
-              <li data-track="0" class="track-item"><span class="track-number">01</span><span class="track-name">Vengador tóxico</span><span class="track-duration">3:34</span></li>
-              <li data-track="1" class="track-item"><span class="track-number">02</span><span class="track-name">Algo bueno</span><span class="track-duration">3:40</span></li>
-              <li data-track="2" class="track-item"><span class="track-number">03</span><span class="track-name">Camino a marte</span><span class="track-duration">4:40</span></li>
-              <li data-track="3" class="track-item"><span class="track-number">04</span><span class="track-name">Puro corazón</span><span class="track-duration">3:18</span></li>
-              <li data-track="4" class="track-item"><span class="track-number">05</span><span class="track-name">Plástico</span><span class="track-duration">2:34</span></li>
-              <li data-track="5" class="track-item"><span class="track-number">06</span><span class="track-name">Pesca</span><span class="track-duration">3:04</span></li>
-              <li data-track="6" class="track-item"><span class="track-number">07</span><span class="track-name">Solos en la gran ciudad</span><span class="track-duration">3:14</span></li>
-              <li data-track="7" class="track-item"><span class="track-number">08</span><span class="track-name">La eternidad</span><span class="track-duration">2:32</span></li>
-              <li data-track="8" class="track-item"><span class="track-number">09</span><span class="track-name">Nuestra última canción</span><span class="track-duration">3:42</span></li>
-            </ul>
+          <div class="np-now-playing">
+            <div class="np-now-label">Reproduciendo</div>
+            <div class="np-now-title" id="np-now-title">Vengador tóxico</div>
           </div>
+
+          <div class="np-progress-area">
+            <div class="np-progress-wrap" id="np-progress-bar">
+              <div class="np-progress-fill" id="np-progress-fill"></div>
+            </div>
+            <div class="np-time">
+              <span id="np-time-current">0:00</span>
+              <span id="np-time-total">3:34</span>
+            </div>
+          </div>
+
+          <div class="np-controls">
+            <button class="np-ctrl-btn" id="np-btn-prev" title="Anterior">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6V6zm3.5 6 8.5 6V6L9.5 12z"/></svg>
+            </button>
+            <button class="np-play-btn" id="np-btn-play">
+              <svg id="np-icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="np-icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button class="np-ctrl-btn" id="np-btn-next" title="Siguiente">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2.5-6L15 6v12L8.5 12zM16 6h2v12h-2z"/></svg>
+            </button>
+          </div>
+
+          <div class="np-tracklist">
+            <div class="np-tracklist-header">
+              <span>#</span><span>Canción</span><span style="text-align:right">Dur.</span>
+            </div>
+            <div id="np-track-list"></div>
+          </div>
+
         </div>
-        
         <audio id="audio-player"></audio>
       </div>
     </div>
@@ -1093,96 +1097,120 @@
   const SITE_URL = window.location.origin + window.location.pathname;
 
   // ── DATOS DEL PLAYER ──────────────────────────────────────
+  const BASE_URL = 'https://lossub.com.ar/';
   const TRACKS = [
-    { name: 'Vengador tóxico', duration: '3:34', driveId: '1hPqATqmXeWbrgvfGMXckpXF47UbQJjKJ' },
-    { name: 'Algo bueno', duration: '3:40', driveId: '1iakD1GyEaL7DQEnCrpMTS8r-YlO7VTQO' },
-    { name: 'Camino a marte', duration: '4:40', driveId: '1unvisHyKq228yphKOWu7m_9zv4_9IMSM' },
-    { name: 'Puro corazón', duration: '3:18', driveId: '17Y-M4uvVEGicqwQQCRDr-vT1_2QoHcza' },
-    { name: 'Plástico', duration: '2:34', driveId: '1q-dS0jHIHDOuHZpDZMICmJzjDVGPFfjH' },
-    { name: 'Pesca', duration: '3:04', driveId: '1xZRmlEnGXEK0pObFg2TP8pgjYXwtYIFa' },
-    { name: 'Solos en la gran ciudad', duration: '3:14', driveId: '1pWW65pLRaWCy93aZi4mhvTV225qotw7t' },
-    { name: 'La eternidad', duration: '2:32', driveId: '1W721oZlwjPUrZoTpl3WvQkEZubKFL6Ap' },
-    { name: 'Nuestra última canción', duration: '3:42', driveId: '1nNCwjpF7J4SHN4SivUi8UPffWn94jLZM' }
+    { num: '01', title: 'Vengador tóxico',        file: '01 Vengador tóxico.m4a',        duration: '3:34' },
+    { num: '02', title: 'Algo bueno',              file: '02 Algo bueno.m4a',              duration: '3:40' },
+    { num: '03', title: 'Camino a marte',          file: '03 Camino a marte.m4a',          duration: '4:40' },
+    { num: '04', title: 'Puro corazón',            file: '04 Puro corazón.m4a',            duration: '3:18' },
+    { num: '05', title: 'Plástico',                file: '05 Plástico.m4a',                duration: '2:34' },
+    { num: '06', title: 'Pesca',                   file: '06 Pesca.m4a',                   duration: '3:04' },
+    { num: '07', title: 'Solos en la gran ciudad', file: '07 Solos en la gran ciudad.m4a', duration: '3:14' },
+    { num: '08', title: 'La eternidad',            file: '08 La eternidad.m4a',            duration: '2:32' },
+    { num: '09', title: 'Nuestra última canción',  file: '09 Nuestra ultima cancion.m4a',  duration: '3:42' },
   ];
 
-  let trackActual = -1;
-  let playing = false;
-  let interval = null;
-  let progreso = 0;
-  const audioElement = document.getElementById('audio-player');
+  let npCurrent = 0;
+  let npPlaying = false;
+  const npAudio = document.getElementById('audio-player');
 
-  function getDriveStreamUrl(driveId) {
-    return `https://drive.google.com/uc?id=${driveId}`;
-  }
-
-  function selectTrack(idx) {
-    trackActual = idx;
-    const track = TRACKS[idx];
-    const url = getDriveStreamUrl(track.driveId);
-    
-    audioElement.src = url;
-    audioElement.load();
-    
-    document.querySelectorAll('.track-item').forEach((li, i) => {
-      li.classList.toggle('playing', i === idx);
+  function npBuildTracklist() {
+    const list = document.getElementById('np-track-list');
+    if (!list) return;
+    list.innerHTML = '';
+    TRACKS.forEach((t, i) => {
+      const row = document.createElement('div');
+      row.className = 'np-track-row' + (i === 0 ? ' active' : '');
+      row.dataset.index = i;
+      row.innerHTML = `
+        <span class="np-track-num">${t.num}</span>
+        <span class="np-track-name">${t.title}</span>
+        <span class="np-track-dur">${t.duration}</span>
+      `;
+      row.addEventListener('click', () => npLoadTrack(i, true));
+      list.appendChild(row);
     });
-    
-    progreso = 0;
-    document.getElementById('progress').style.width = '0%';
-    startPlay();
   }
 
-  function togglePlay() {
-    if (trackActual === -1) {
-      // Si no hay canción seleccionada, seleccionar la primera
-      selectTrack(0);
-      return;
+  function npLoadTrack(index, autoplay) {
+    npCurrent = index;
+    const t = TRACKS[index];
+    npAudio.src = BASE_URL + encodeURIComponent(t.file);
+    const titleEl = document.getElementById('np-now-title');
+    if (titleEl) titleEl.textContent = t.title;
+    const fill = document.getElementById('np-progress-fill');
+    if (fill) fill.style.width = '0%';
+    const cur = document.getElementById('np-time-current');
+    if (cur) cur.textContent = '0:00';
+    const tot = document.getElementById('np-time-total');
+    if (tot) tot.textContent = t.duration;
+    document.querySelectorAll('.np-track-row').forEach((r, i) => {
+      r.classList.toggle('active', i === index);
+    });
+    if (autoplay) {
+      npAudio.play().then(() => npSetPlaying(true)).catch(() => {});
+    } else {
+      npSetPlaying(false);
     }
-    if (playing) pausePlay(); 
-    else startPlay();
   }
 
-  function startPlay() {
-    if (trackActual === -1) return;
-    playing = true;
-    document.getElementById('play-btn').textContent = '⏸';
-    
-    audioElement.play().catch(err => {
-      console.error('Error reproduciendo audio:', err);
-      // Si hay CORS error, intentar de otro modo
-      pausePlay();
+  function npSetPlaying(val) {
+    npPlaying = val;
+    const iconPlay = document.getElementById('np-icon-play');
+    const iconPause = document.getElementById('np-icon-pause');
+    if (iconPlay) iconPlay.style.display = val ? 'none' : 'block';
+    if (iconPause) iconPause.style.display = val ? 'block' : 'none';
+  }
+
+  function npFormatTime(s) {
+    if (isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2, '0')}`;
+  }
+
+  function npInitListeners() {
+    const btnPlay = document.getElementById('np-btn-play');
+    if (btnPlay) {
+      btnPlay.addEventListener('click', () => {
+        if (!npAudio.src || npAudio.src === window.location.href) {
+          npLoadTrack(npCurrent, true); return;
+        }
+        if (npPlaying) {
+          npAudio.pause(); npSetPlaying(false);
+        } else {
+          npAudio.play().then(() => npSetPlaying(true)).catch(() => {});
+        }
+      });
+    }
+    const btnNext = document.getElementById('np-btn-next');
+    if (btnNext) btnNext.addEventListener('click', () => npLoadTrack((npCurrent + 1) % TRACKS.length, true));
+    const btnPrev = document.getElementById('np-btn-prev');
+    if (btnPrev) btnPrev.addEventListener('click', () => {
+      if (npAudio.currentTime > 3) { npAudio.currentTime = 0; }
+      else { npLoadTrack((npCurrent - 1 + TRACKS.length) % TRACKS.length, true); }
     });
-    
-    clearInterval(interval);
-    interval = setInterval(() => {
-      if (audioElement.duration > 0) {
-        progreso = (audioElement.currentTime / audioElement.duration) * 100;
-        document.getElementById('progress').style.width = progreso + '%';
-        updateTimeDisplay();
+
+    npAudio.addEventListener('timeupdate', () => {
+      if (npAudio.duration) {
+        const fill = document.getElementById('np-progress-fill');
+        if (fill) fill.style.width = (npAudio.currentTime / npAudio.duration * 100) + '%';
+        const cur = document.getElementById('np-time-current');
+        if (cur) cur.textContent = npFormatTime(npAudio.currentTime);
+        const tot = document.getElementById('np-time-total');
+        if (tot) tot.textContent = npFormatTime(npAudio.duration);
       }
-      if (audioElement.currentTime >= audioElement.duration && audioElement.duration > 0) {
-        pausePlay();
-      }
-    }, 300);
-  }
+    });
+    npAudio.addEventListener('ended', () => npLoadTrack((npCurrent + 1) % TRACKS.length, true));
 
-  function pausePlay() {
-    playing = false;
-    document.getElementById('play-btn').textContent = '▶';
-    audioElement.pause();
-    clearInterval(interval);
-  }
-
-  function updateTimeDisplay() {
-    const current = formatTime(audioElement.currentTime || 0);
-    const duration = formatTime(audioElement.duration || 0);
-    document.getElementById('time-display').textContent = `${current} / ${duration}`;
-  }
-
-  function formatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    const progressBar = document.getElementById('np-progress-bar');
+    if (progressBar) {
+      progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const pct = (e.clientX - rect.left) / rect.width;
+        if (npAudio.duration) npAudio.currentTime = pct * npAudio.duration;
+      });
+    }
   }
 
   // ── COOKIE HELPERS ───────────────────────────────────────
@@ -1221,30 +1249,10 @@
     document.getElementById('disco-check-email').style.display = 'none';
     document.getElementById('player').classList.remove('hidden');
     document.getElementById('player').classList.add('visible');
-    
-    // Inicializar los listeners del player
     setTimeout(() => {
-      document.querySelectorAll('.track-item').forEach((item, idx) => {
-        item.addEventListener('click', () => selectTrack(idx));
-      });
-      
-      const playBtn = document.getElementById('play-btn');
-      if (playBtn) {
-        playBtn.addEventListener('click', togglePlay);
-      }
-      
-      const progressBar = document.querySelector('.player-progress');
-      if (progressBar) {
-        progressBar.addEventListener('click', (e) => {
-          if (trackActual === -1 || !audioElement.duration) return;
-          const rect = e.currentTarget.getBoundingClientRect();
-          const percent = (e.clientX - rect.left) / rect.width;
-          audioElement.currentTime = percent * audioElement.duration;
-          progreso = percent * 100;
-          document.getElementById('progress').style.width = progreso + '%';
-        });
-      }
-    }, 100);
+      npBuildTracklist();
+      npInitListeners();
+    }, 50);
   }
 
   // ── ENVIAR VERIFICACIÓN ───────────────────────────────────
