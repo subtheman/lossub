@@ -416,13 +416,12 @@
 
     /* MAIN LAYOUT */
     main {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: block;
       border-top: none;
     }
 
     .col-left {
-      border-right: 1px solid #ccc;
+      border-right: none;
       padding: 28px 24px;
     }
     .col-right {
@@ -538,6 +537,91 @@
       color: var(--rojo);
       text-decoration: none;
       letter-spacing: 1px;
+    }
+
+    /* NOVEDADES - NUEVA ESTRUCTURA 2 COLUMNAS */
+    .novedades-section {
+      width: 100%;
+      border-top: 1px solid #333;
+    }
+
+    .novedades-header-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #333;
+    }
+
+    .novedades-header-left,
+    .novedades-header-right {
+      padding: 20px 24px;
+      border-right: 1px solid #333;
+    }
+
+    .novedades-header-right {
+      border-right: none;
+    }
+
+    .novedades-header {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--rojo);
+      margin: 0;
+      padding: 0;
+    }
+
+    .novedades-content-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .novedades-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 24px;
+      border-right: 1px solid #333;
+      background: var(--blanco);
+    }
+
+    .novedades-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background: var(--blanco);
+      overflow: hidden;
+    }
+
+    .novedades-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .novedades-content-row {
+        grid-template-columns: 1fr;
+      }
+      .novedades-left {
+        border-right: none;
+        border-bottom: 1px solid #333;
+      }
+      .novedades-header-row {
+        grid-template-columns: 1fr;
+      }
+      .novedades-header-left,
+      .novedades-header-right {
+        border-right: none;
+        border-bottom: 1px solid #333;
+      }
+      .novedades-header-right {
+        border-bottom: none;
+      }
     }
 
     /* NOVEDADES */
@@ -825,35 +909,46 @@
 
 <!-- MAIN -->
 <main>
-  <!-- COLUMNA IZQUIERDA -->
-  <div class="col-left">
-
-    <!-- DISCO -->
-    <div class="disco-section" id="disco">
-      <div class="section-title">Disco nuevo</div>
-      <div class="disco-title">DESTRUYE TODO</div>
-      <div class="disco-desc">
-        Dejá tu email y escuchá el disco completo.
+  <!-- NOVEDADES - NUEVA ESTRUCTURA 2 COLUMNAS -->
+  <div class="novedades-section">
+    <!-- Encabezados -->
+    <div class="novedades-header-row">
+      <div class="novedades-header-left">
+        <h3 class="novedades-header">Disco Nuevo</h3>
       </div>
-
-      <!-- Formulario -->
-      <div class="disco-form" id="disco-form">
-        <p id="disco-form-msg">// INGRESÁ TU EMAIL PARA ESCUCHAR EL DISCO</p>
-        <input type="email" id="disco-email" placeholder="tu@email.com">
-        <button onclick="enviarVerificacion()">ESCUCHAR →</button>
+      <div class="novedades-header-right">
+        <h3 class="novedades-header">Novedades</h3>
       </div>
+    </div>
 
+    <!-- Contenido: Player y Tapa lado a lado -->
+    <div class="novedades-content-row">
+      <!-- COLUMNA IZQUIERDA: PLAYER -->
+      <div class="novedades-left">
+        <!-- DISCO -->
+        <div class="disco-section" id="disco">
+          <div class="disco-title">DESTRUYE TODO</div>
+          <div class="disco-desc">
+            Dejá tu email y escuchá el disco completo.
+          </div>
 
-      <!-- Mensaje post-envío -->
-      <div id="disco-check-email" style="display:none; background:#0a0a0a; padding:20px;">
-        <p style="color:#aaa; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.7;">
-          ✓ Te mandamos un mail a <span id="disco-email-sent" style="color:#c0392b;"></span><br>
-          Abrilo y hacé clic en <strong style="color:white;">"IR A ESCUCHAR EL DISCO"</strong>
-        </p>
-      </div>
+          <!-- Formulario -->
+          <div class="disco-form" id="disco-form">
+            <p id="disco-form-msg">// INGRESÁ TU EMAIL PARA ESCUCHAR EL DISCO</p>
+            <input type="email" id="disco-email" placeholder="tu@email.com">
+            <button onclick="enviarVerificacion()">ESCUCHAR →</button>
+          </div>
 
-      <!-- Player (oculto hasta verificación) -->
-      <div id="player" class="hidden">
+          <!-- Mensaje post-envío -->
+          <div id="disco-check-email" style="display:none; background:#0a0a0a; padding:20px;">
+            <p style="color:#aaa; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.7;">
+              ✓ Te mandamos un mail a <span id="disco-email-sent" style="color:#c0392b;"></span><br>
+              Abrilo y hacé clic en <strong style="color:white;">"IR A ESCUCHAR EL DISCO"</strong>
+            </p>
+          </div>
+
+          <!-- Player (oculto hasta verificación) -->
+          <div id="player" class="hidden">
         <div class="np-wrap">
 
           <div class="np-album-header">
@@ -902,18 +997,27 @@
         </div>
         <audio id="audio-player"></audio>
       </div>
-    </div>
+        </div>
 
-    <!-- DISCOGRAFIA -->
+      <!-- COLUMNA DERECHA: TAPA DEL DISCO -->
+      <div class="novedades-right">
+        <img src="tapa.jpg" alt="Los Sub – Destruye Todo">
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMNA CON DISCOGRAFÍA Y OTRAS SECCIONES -->
+  <div class="col-left">
     <div class="disco-section" id="discografia">
       <div class="section-title">Discografía</div>
       <div class="discografia-grid">
 
         <div class="album-item">
-          <div class="album-cover" style="background:#111;"></div>
+          <div class="album-cover"></div>
           <div class="album-info">
             <div class="album-name">Los Sub Destruye Todo</div>
             <div class="album-year">2026 · Álbum</div>
+            <div class="album-links"></div>
           </div>
         </div>
 
@@ -1056,29 +1160,6 @@
 
   </div>
 
-  <!-- COLUMNA DERECHA -->
-  <div class="col-right">
-    <div id="novedades">
-      <div class="section-title">Novedades</div>
-
-      <div class="novedad">
-        <div class="novedad-fecha">12.04.2026</div>
-        <div class="novedad-titulo">Destruye Todo</div>
-        <div class="novedad-texto">
-          Ya está disponible nuestro nuevo disco. Dejá tu mail en la sección de música y escuchalo completo, antes que en cualquier plataforma. Gracias por el aguante de siempre.
-        </div>
-      </div>
-
-      <!-- Agregar novedades acá arriba siguiendo el mismo formato -->
-
-    </div>
-
-    <!-- TAPA DEL DISCO -->
-    <div style="margin-top: 28px;">
-      <img src="tapa.jpg" alt="Los Sub – Destruye Todo" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;">
-    </div>
-
-  </div>
 </main>
 
 <!-- FOOTER -->
@@ -1355,4 +1436,5 @@
   function closeMenu() {
     document.querySelector('nav').classList.remove('visible');
   }
-</script>
+</script>-e 
+</html>
