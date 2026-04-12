@@ -445,27 +445,6 @@
     .disco-section {
       margin-bottom: 40px;
     }
-    .disco-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-    .disco-tapa {
-      width: 100%;
-      aspect-ratio: 1;
-      overflow: hidden;
-    }
-    .disco-tapa img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .disco-contenido { min-width: 0; }
-    @media (max-width: 900px) {
-      .disco-layout { grid-template-columns: 1fr; }
-    }
     .disco-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 2rem;
@@ -852,37 +831,29 @@
     <!-- DISCO -->
     <div class="disco-section" id="disco">
       <div class="section-title">Disco nuevo</div>
-      <div class="disco-layout">
+      <div class="disco-title">DESTRUYE TODO</div>
+      <div class="disco-desc">
+        Dejá tu email y escuchá el disco completo.
+      </div>
 
-        <!-- Tapa -->
-        <div class="disco-tapa">
-          <img src="tapa.jpg" alt="Los Sub – Destruye Todo">
-        </div>
+      <!-- Formulario -->
+      <div class="disco-form" id="disco-form">
+        <p id="disco-form-msg">// INGRESÁ TU EMAIL PARA ESCUCHAR EL DISCO</p>
+        <input type="email" id="disco-email" placeholder="tu@email.com">
+        <button onclick="enviarVerificacion()">ESCUCHAR →</button>
+      </div>
 
-        <!-- Contenido -->
-        <div class="disco-contenido">
-          <div class="disco-title">DESTRUYE TODO</div>
-          <div class="disco-desc">
-            Dejá tu email y escuchá el disco completo.
-          </div>
 
-          <!-- Formulario -->
-          <div class="disco-form" id="disco-form">
-            <p id="disco-form-msg">// INGRESÁ TU EMAIL PARA ESCUCHAR EL DISCO</p>
-            <input type="email" id="disco-email" placeholder="tu@email.com">
-            <button onclick="enviarVerificacion()">ESCUCHAR →</button>
-          </div>
+      <!-- Mensaje post-envío -->
+      <div id="disco-check-email" style="display:none; background:#0a0a0a; padding:20px;">
+        <p style="color:#aaa; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.7;">
+          ✓ Te mandamos un mail a <span id="disco-email-sent" style="color:#c0392b;"></span><br>
+          Abrilo y hacé clic en <strong style="color:white;">"IR A ESCUCHAR EL DISCO"</strong>
+        </p>
+      </div>
 
-          <!-- Mensaje post-envío -->
-          <div id="disco-check-email" style="display:none; background:#0a0a0a; padding:20px;">
-            <p style="color:#aaa; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.7;">
-              ✓ Te mandamos un mail a <span id="disco-email-sent" style="color:#c0392b;"></span><br>
-              Abrilo y hacé clic en <strong style="color:white;">"IR A ESCUCHAR EL DISCO"</strong>
-            </p>
-          </div>
-
-          <!-- Player (oculto hasta verificación) -->
-          <div id="player" class="hidden">
+      <!-- Player (oculto hasta verificación) -->
+      <div id="player" class="hidden">
         <div class="np-wrap">
 
           <div class="np-album-header">
@@ -930,10 +901,8 @@
 
         </div>
         <audio id="audio-player"></audio>
-        </div><!-- /player -->
-        </div><!-- /disco-contenido -->
-      </div><!-- /disco-layout -->
-    </div><!-- /disco-section -->
+      </div>
+    </div>
 
     <!-- DISCOGRAFIA -->
     <div class="disco-section" id="discografia">
@@ -1104,6 +1073,12 @@
       <!-- Agregar novedades acá arriba siguiendo el mismo formato -->
 
     </div>
+
+    <!-- TAPA DEL DISCO -->
+    <div style="margin-top: 28px;">
+      <img src="tapa.jpg" alt="Los Sub – Destruye Todo" style="width: 130%; max-width: 130%; display: block;">
+    </div>
+
   </div>
 </main>
 
