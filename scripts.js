@@ -269,6 +269,46 @@ function enviarContacto() {
   });
 }
 
+// ── SHOWS (leídos desde shows.json) ──────────────────────
+function renderShows(shows) {
+  const container = document.getElementById('shows-list');
+  if (!container) return;
+
+  if (!Array.isArray(shows) || shows.length === 0) {
+    container.innerHTML = '<div class="no-shows">Por el momento no hay shows confirmados. ¡Pronto novedades!</div>';
+    return;
+  }
+
+  container.innerHTML = shows.map(function(s) {
+    const cityTime = s.time ? (s.city + ' · ' + s.time) : s.city;
+    const link = s.link
+      ? '<a class="show-ticket" href="' + s.link + '" target="_blank">' + (s.linkText || 'VER INFO →') + '</a>'
+      : '';
+    return (
+      '<div class="show-item">' +
+        '<div class="show-date">' + s.date + '</div>' +
+        '<div class="show-info">' +
+          '<div class="show-venue">' + s.venue + '</div>' +
+          '<div class="show-city">' + cityTime + '</div>' +
+          link +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+}
+
+function loadShows() {
+  // cache-busting para que GitHub Pages/Cloudflare no sirvan una versión vieja
+  fetch('shows.json?_=' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(renderShows)
+    .catch(function(err) {
+      console.error('Error cargando shows.json:', err);
+      const container = document.getElementById('shows-list');
+      if (container) container.innerHTML = '<div class="no-shows">No se pudieron cargar los shows.</div>';
+    });
+}
+
 function initPage() {
   const hamburger = document.getElementById('hamburger');
   if (hamburger) hamburger.addEventListener('click', toggleMenu);
@@ -294,6 +334,8 @@ function initPage() {
 
   const btnContacto = document.getElementById('btn-contacto');
   if (btnContacto) btnContacto.addEventListener('click', enviarContacto);
+
+  loadShows();
 
   const params = new URLSearchParams(window.location.search);
   if (params.get('disco') === 'ok') {
